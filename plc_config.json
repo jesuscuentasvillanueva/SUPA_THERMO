@@ -1,0 +1,15 @@
+{
+  "variables": [
+    {
+      "name": "tunel1_ambiente1",
+      "db": 22,
+      "offset": 144,
+      "type": "REAL",
+      "id_fundo": 2,
+      "id_sensorlocalizacion": 1,
+      "id_metrica": 2,
+      "scale": 1.0,
+      "bias": 0.0
+    }
+  ]
+}

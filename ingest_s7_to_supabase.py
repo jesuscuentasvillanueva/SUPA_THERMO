@@ -20,10 +20,12 @@ def get_arg_or_env(parser):
     p.db_password = p.db_password or os.getenv("DB_PASSWORD") or "Migiva2025_2026"
     p.sslmode = (p.sslmode or os.getenv("DB_SSLMODE") or "require").lower()
     p.schema = p.schema or os.getenv("DB_SCHEMA") or "thermo"
-    p.plc_ip = p.plc_ip or os.getenv("PLC_IP")
+    p.plc_ip = p.plc_ip or os.getenv("PLC_IP") or "195.168.1.10"
     p.rack = p.rack if p.rack is not None else int(os.getenv("PLC_RACK") or 0)
-    p.slot = p.slot if p.slot is not None else int(os.getenv("PLC_SLOT") or 1)
-    missing = [k for k in ["db_host", "db_port", "db_name", "db_user", "db_password", "plc_ip", "config"] if getattr(p, k, None) in (None, "")]
+    p.slot = p.slot if p.slot is not None else int(os.getenv("PLC_SLOT") or 0)
+    p.config = getattr(p, "config", None) or os.getenv("PLC_CONFIG") or "plc_config.json"
+    p.interval = p.interval if p.interval is not None else int(os.getenv("INGEST_INTERVAL_SEC") or 120)
+    missing = [k for k in ["db_host", "db_port", "db_name", "db_user", "db_password"] if getattr(p, k, None) in (None, "")]
     if missing:
         print("Faltan parámetros: " + ", ".join(missing), file=sys.stderr)
         sys.exit(1)
